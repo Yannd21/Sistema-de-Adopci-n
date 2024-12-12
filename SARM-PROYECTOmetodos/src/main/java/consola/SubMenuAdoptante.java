@@ -5,7 +5,7 @@ import util.validacion;
 import java.util.Scanner;
 
 public class SubMenuAdoptante {
-    private int MAX_ADOPTANTES = 25; // Tamaño máximo del arreglo
+    private final int MAX_ADOPTANTES = 25; // Tamaño máximo del arreglo
     private String[][] adoptantes = new String[MAX_ADOPTANTES][7]; // Arreglo bidimensional para almacenar datos
     private int adoptanteCount = 0; // Contador de adoptantes registrados
 
@@ -179,15 +179,6 @@ public class SubMenuAdoptante {
         }
     }
 
-    private void nuevaCacidadMaxAdoptantes() {
-        MAX_ADOPTANTES *= 2; // Duplica el tamaño
-        String[][] nuevaCapacidad = new String[MAX_ADOPTANTES][7];
-        for (int i = 0; i < adoptanteCount; i++) {
-            nuevaCapacidad[i] = adoptantes[i];
-        }
-        adoptantes = nuevaCapacidad;
-        System.out.println("La capacidad de adoptantes ha sido actualizada a " + MAX_ADOPTANTES + " adoptantes.");
-    }
     private int buscarAdoptantePorID(String id) {
         for (int i = 0; i < adoptanteCount; i++) {
             if (adoptantes[i][0].equals(id)) {

@@ -20,6 +20,7 @@ public class TestAdoptante {
          public static void testAgregar() {
            r.agregarSolicitudAdopcion("02/10/2022", "Ana",1754366504);
         }
+        public static void testModificar() { r.modificarSolicitudeAdopcion(0, "05/10/2022", "Ana Maria", 1234567890); }
         public static void testBuscar(int pos) {
                 System.out.println(r.buscarSolicitudes(pos));
 

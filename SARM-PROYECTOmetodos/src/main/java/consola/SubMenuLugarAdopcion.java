@@ -2,11 +2,10 @@ package consola;
 
 import util.validacion;
 
-
 import java.util.Scanner;
 
 public class SubMenuLugarAdopcion {
-    private int MAX_LUGARES = 25;
+    private final int MAX_LUGARES = 25;
     private String[][] lugaresDeAdopcion = new String[MAX_LUGARES][4];
     private int lugarCount = 0;
 
@@ -115,15 +114,6 @@ public class SubMenuLugarAdopcion {
             default: // Opción inválida
                 System.out.println("Opción inválida.");
         }
-    }
-    private void nuevaCacidadMaxLugares() {
-        MAX_LUGARES *= 2; // Duplica el tamaño
-        String[][] nuevaCapacidad = new String[MAX_LUGARES][7];
-        for (int i = 0; i < lugarCount; i++) {
-            nuevaCapacidad[i] = lugaresDeAdopcion[i];
-        }
-        lugaresDeAdopcion = nuevaCapacidad;
-        System.out.println("Luagres de adopción ha sido actualizada a " + MAX_LUGARES + " lugares de adopción.");
     }
 
     private int buscarLugarPorID(String id) {

@@ -151,11 +151,20 @@ public class CentroAdopcion {
     //Agregar lugares
     public void agregarLugarAdopcion(String nombre, String direccion, int capacidad, String fecha, int id) {
         if (numeroDeLugares >= lugares.length) {
-            throw new IllegalStateException(" No se puede agregar mas lugares ");
+            redimensionarLugares();
         }
         lugares[numeroDeLugares] = new LugarAdopcion(nombre, direccion, capacidad, fecha, id);
         numeroDeLugares++;
     }
+
+        // Metodo para redimensionar el arreglo de lugares
+    private void redimensionarLugares() {
+         int nuevaCapacidad = lugares.length * 2;
+         LugarAdopcion[] nuevoCap = new LugarAdopcion[nuevaCapacidad];
+         System.arraycopy(lugares, 0, nuevoCap, 0, lugares.length); lugares = nuevoCap;
+         System.out.println("El arreglo de lugares ha sido actializaddo a " + nuevaCapacidad + " lugares.");
+    }
+
         /**
          * Consultar solicitudes
          *
@@ -163,43 +172,97 @@ public class CentroAdopcion {
          */
         //Consultar lugares
         public String consultarLugares(){
-            String texto = "";
+            StringBuilder texto = new StringBuilder();
             for (int i=0; i<  numeroDeLugares; i++){
-                texto += lugares[i] +"/r/n";
+                texto.append(lugares[i]).append("\r\n");
             }
-            return texto;
+            return texto.toString();
         }
 
          // Buscar un lugares
         public LugarAdopcion buscarLugares(int pos){
+            if (pos <0 || pos >= numeroDeLugares){
+                throw new IllegalArgumentException("Posicion de lugar invalida");
+            }
             return lugares [pos] ;
         }
+
+        //Moficar-Editar lugares
+    public void modificarLugarAdopcion(int index, String nuevoNombre, String nuevaDireccion, int nuevaCapacidad, String nuevaFecha, int nuevoId){
+        if (index < 0 || index >= numeroDeLugares){
+            throw new IllegalArgumentException("Indice de lugar invalido");
+        }
+        LugarAdopcion lugar = lugares[index];
+        if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
+            lugar.setNombre(nuevoNombre);
+        }
+        if (nuevaDireccion != null && !nuevaDireccion.isEmpty()) {
+            lugar.setDireccion(nuevaDireccion);
+        }
+        if (nuevaCapacidad>0){
+            lugar.setCapacidad(nuevaCapacidad);
+        }
+        if (nuevaFecha != null && !nuevaFecha.isEmpty()){
+            lugar.setFecha(nuevaFecha);
+        }
+        if (nuevoId>0){
+            lugar.setId(nuevoId);
+        }
+        System.out.println("Lugar de adopcion modificado correctamente");
+    }
 
         //Agregar un usuario
 
         public void agregarUsuario(int idUsuario, String nombre, String contrasenia) {
             if (numeroDeUsuarios >= usuarios.length) {
-                throw new IllegalStateException("No se puede agregar más usuarios");
+                redimensionarUsuarios();
             }
             usuarios[numeroDeUsuarios] = new Usuario(idUsuario, nombre, contrasenia);
             numeroDeUsuarios++;
         }
 
+        // Metodo redimensionar el arreglo de usuarios
+    private void redimensionarUsuarios() {
+            int nuevaCapacidad = usuarios.length * 2;
+            Usuario[] nuevoArreglo = new Usuario[nuevaCapacidad];
+            System.arraycopy(usuarios, 0, nuevoArreglo, 0, usuarios.length);
+            usuarios = nuevoArreglo; System.out.println("El arreglo de usuarios ha sido redimensionado a " + nuevaCapacidad + " usuarios.");
+        }
+
 
         // Consultar los usuarios
         public String consultarUsuarios() {
-            String texto = " ";
-            for (int i = 0; i < numeroDeUsuarios; i++)
-                texto += usuarios[i] + "/r/n";
-                return texto;
+            StringBuilder texto = new StringBuilder();
+            for (int i = 0; i < numeroDeUsuarios; i++) {
+                texto.append(usuarios[i]).append("\r\n");
+            }
+                return texto.toString();
 
         }
-
 
          // Buscar un usuario por su índice
         public Usuario buscarUsuarios(int pos) {
+            if (pos <0 || pos >= numeroDeUsuarios){
+                throw new IllegalArgumentException("Posicion de usuario invalido");
+            }
             return usuarios[pos];
         }
+    public void modificarUsuario(int index, int nuevoId, String nuevoNombre, String nuevaContrasenia) {
+        if (index < 0 || index >= numeroDeUsuarios) {
+            throw new IllegalArgumentException("Índice de usuario inválido.");
+        }
+        Usuario usuario = usuarios[index];
+        if (nuevoId > 0) {
+            usuario.setIdUsuario(nuevoId);
+        }
+        if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
+            usuario.setNombre(nuevoNombre);
+        }
+        if (nuevaContrasenia != null && !nuevaContrasenia.isEmpty()){
+            usuario.setContrasenia(nuevaContrasenia);
+        }
+        System.out.println("Usuario modificado exitosamente");
+    }
 }
 
 

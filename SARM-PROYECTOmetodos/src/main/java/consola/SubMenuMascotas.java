@@ -125,6 +125,7 @@ public class SubMenuMascotas {
         }
     }
 
+
     private int buscarMascotaPorID(String id) {
         for (int i = 0; i < mascotaCount; i++) {
             if (mascotas[i][0].equals(id)) {

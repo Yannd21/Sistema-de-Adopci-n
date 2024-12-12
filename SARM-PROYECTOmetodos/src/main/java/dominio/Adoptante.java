@@ -183,6 +183,13 @@ public class Adoptante {
         solicitudes[numeroDeSolicitudes] = new SolicitudAdopcion(fecha,nombreadoptante,Id);
         numeroDeSolicitudes++;
     }
+    private void redimensionarSolicitudes(){
+        int nuevaCapacidad =solicitudes.length*2;
+        SolicitudAdopcion[] nuevaCap=new SolicitudAdopcion[nuevaCapacidad];
+        System.arraycopy(solicitudes,0, nuevaCap,0, solicitudes.length);
+        solicitudes = nuevaCap;
+        System.out.println("La capacidad de solicitudes ha sido redimensionado a" + nuevaCapacidad + " solicitudes.");
+    }
 
     /**
      * Consultar solicitudes
@@ -192,15 +199,37 @@ public class Adoptante {
 
     //Consultar solicitudes
     public String consultarSolicitudes() {
-        String texto = "";
-        for (int i = 0; i < numeroDeSolicitudes; i++)
-            texto += solicitudes[i] + "/r/n";
-
-        return texto;
+        StringBuilder texto = new StringBuilder();
+        for (int i = 0; i < numeroDeSolicitudes; i++){
+            texto.append(solicitudes[i]).append("\r\n");
+    }
+        return texto.toString();
     }
     //Buscar solicitudes
     public SolicitudAdopcion buscarSolicitudes(int pos){
+        if (pos<0 || pos >= numeroDeSolicitudes){
+            throw new IllegalArgumentException("Posicion de solicitud invalida");
+        }
         return solicitudes [pos] ;
+    }
+
+    //Metodo para modificar solicitudes
+    public void modificarSolicitudeAdopcion(int index, String newFecha, String newNombreAdp, int newId){
+        if (index < 0 || index >= numeroDeSolicitudes){
+            throw new IllegalArgumentException("Indice de solicitud invalido");
+        }
+        SolicitudAdopcion solicitud = solicitudes[index];
+        if (newFecha != null && !newFecha.isEmpty()){
+            solicitud.setFecha(newFecha);
+        }
+        if (newNombreAdp != null && !newNombreAdp.isEmpty()){
+            solicitud.setNombreadoptante(newNombreAdp);
+        }
+        if (newId>0){
+            solicitud.setId(newId);
+        }
+        System.out.println("Solicitud de Adopcion modificada correctamente");
+
     }
 }
 
